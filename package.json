@@ -1,0 +1,25 @@
+{
+  "name": "duedatecalc",
+  "version": "1.0.0",
+  "description": "Due Date Calculator",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vimtaai/duedatecalc.git"
+  },
+  "keywords": [
+    "due",
+    "date",
+    "issue",
+    "tracking"
+  ],
+  "author": "Márton Visnovitz <visnovitz.marton@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vimtaai/duedatecalc/issues"
+  },
+  "homepage": "https://github.com/vimtaai/duedatecalc#readme"
+}
