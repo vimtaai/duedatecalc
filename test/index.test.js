@@ -58,4 +58,13 @@ describe('calcuateDueDate()', () => {
         timeShouldEqual(result, '12:0:0');
         dateShouldEqual(result, '2017-8-28');
     });
+
+    it('should handle month and year overlaps', () => {
+        let result = calculateDueDate(new Date('2017-08-31 15:00:00'), 5);
+        timeShouldEqual(result, '12:0:0');
+        dateShouldEqual(result, '2017-9-1');
+        result = calculateDueDate(new Date('2017-12-29 15:00:00'), 5);
+        timeShouldEqual(result, '12:0:0');
+        dateShouldEqual(result, '2018-1-1');
+    });
 });

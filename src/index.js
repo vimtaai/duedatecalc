@@ -1,3 +1,8 @@
+/**
+ * Calculates a due date and time of a given task
+ * @param {Date} submitDate - The time of recording the task
+ * @param {number} turnaroundTime - The time required to complete the task in hours
+ */
 export function calculateDueDate(submitDate, turnaroundTime) {
     // Predefined constants
     const hoursStart = 9;
