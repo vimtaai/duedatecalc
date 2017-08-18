@@ -1,4 +1,5 @@
 export function calculateDueDate(submitDate, turnaroundTime) {
+    const msPerDay = 86400000;
     const hoursStart = 9;
     const hoursEnd = 17;
     const hoursPerDay = hoursEnd - hoursStart;
@@ -15,9 +16,13 @@ export function calculateDueDate(submitDate, turnaroundTime) {
     }
 
     // Using timestamps handles overlapping months and years
-    dueToDate.setTime(dueToDate.getTime() + days * 86400000);
-
+    dueToDate.setTime(dueToDate.getTime() + days * msPerDay);
     dueToDate.setHours(hours);
+
+    if (dueToDate.getDay() % 6 == 0) { // 0 or 6
+        dueToDate.setTime(dueToDate.getTime() + 2 * msPerDay);
+    }
+
     return dueToDate;
 }
 
