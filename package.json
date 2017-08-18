@@ -4,7 +4,10 @@
   "description": "Due Date Calculator",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "babel src --out-dir dist",
+    "watch": "babel src --out-dir dist -w",
+    "pretest": "npm run build",
+    "test": "mocha test/index.test.js --compilers js:babel-core/register"
   },
   "repository": {
     "type": "git",
@@ -21,5 +24,17 @@
   "bugs": {
     "url": "https://github.com/vimtaai/duedatecalc/issues"
   },
-  "homepage": "https://github.com/vimtaai/duedatecalc#readme"
+  "homepage": "https://github.com/vimtaai/duedatecalc#readme",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "chai": "^4.1.1",
+    "mocha": "^3.5.0"
+  },
+  "babel": {
+    "presets": [
+      "es2015"
+    ]
+  }
 }
