@@ -51,5 +51,11 @@ describe('calcuateDueDate()', () => {
         result = calculateDueDate(new Date('2017-08-18 15:00:00'), 13);
         timeShouldEqual(result, '12:0:0');
         dateShouldEqual(result, '2017-8-22');
+        result = calculateDueDate(new Date('2017-08-18 15:00:00'), 21);
+        timeShouldEqual(result, '12:0:0');
+        dateShouldEqual(result, '2017-8-23');
+        result = calculateDueDate(new Date('2017-08-18 15:00:00'), 45);
+        timeShouldEqual(result, '12:0:0');
+        dateShouldEqual(result, '2017-8-28');
     });
 });

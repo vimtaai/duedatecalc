@@ -5,32 +5,39 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.calculateDueDate = calculateDueDate;
 function calculateDueDate(submitDate, turnaroundTime) {
-    var msPerDay = 86400000;
+    // Predefined constants
     var hoursStart = 9;
     var hoursEnd = 17;
     var hoursPerDay = hoursEnd - hoursStart;
+    var daysPerWeek = 5;
+    var msPerDay = 86400000;
 
-    var dueToDate = submitDate;
+    var dueDate = new Date(submitDate);
+    // startingDay -> 0 - Mon, 6 - Sun
+    var startingDay = (dueDate.getDay() + 6) % 7;
 
+    // Number of complete working days required
     var days = Math.trunc(turnaroundTime / hoursPerDay);
-    turnaroundTime -= days * hoursPerDay;
+    // Number of complete working weeks required
+    var weekends = Math.trunc(turnaroundTime / (hoursPerDay * daysPerWeek));
 
-    var hours = dueToDate.getHours() + turnaroundTime;
+    // Hours of due time
+    var hours = dueDate.getHours() + (turnaroundTime - days * hoursPerDay);
+    // Handle day overlapping
     if (hours > hoursEnd) {
         days++;
         hours -= hoursPerDay;
     }
-
-    // Using timestamps handles overlapping months and years
-    dueToDate.setTime(dueToDate.getTime() + days * msPerDay);
-    dueToDate.setHours(hours);
-
-    if (dueToDate.getDay() % 6 == 0) {
-        // 0 or 6
-        dueToDate.setTime(dueToDate.getTime() + 2 * msPerDay);
+    // Handle weekends
+    if (startingDay + days - weekends * daysPerWeek > 4) {
+        weekends++;
     }
 
-    return dueToDate;
+    // Using timestamps handles overlapping months and years
+    dueDate.setTime(dueDate.getTime() + (days + weekends * 2) * msPerDay);
+    dueDate.setHours(hours);
+
+    return dueDate;
 }
 
 exports.default = calculateDueDate;
