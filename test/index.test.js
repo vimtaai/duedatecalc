@@ -19,7 +19,7 @@ function dateShouldEqual(dateObj, dateString) {
     return dateObjDate.should.equal(dateString);
 }
 
-describe('calcuateDueDate()', () => {
+describe('calculateDueDate()', () => {
     it('should be a function', () => {
         calculateDueDate.should.be.a('function');
     });

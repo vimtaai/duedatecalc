@@ -4,6 +4,11 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 exports.calculateDueDate = calculateDueDate;
+/**
+ * Calculates a due date and time of a given task
+ * @param {Date} submitDate - The time of recording the task
+ * @param {number} turnaroundTime - The time required to complete the task in hours
+ */
 function calculateDueDate(submitDate, turnaroundTime) {
     // Predefined constants
     var hoursStart = 9;

@@ -7,7 +7,7 @@ The code is written in ES6 and compiled to ES5 JavaScript with Babel. Tests are 
 ## Building the source code
 
 ```
-npm build
+npm run build
 ```
 
 ## Running tests
