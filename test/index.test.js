@@ -34,4 +34,13 @@ describe('calcuateDueDate()', () => {
         timeShouldEqual(result, '11:17:52');
         dateShouldEqual(result, '2017-8-19');
     });
+
+    it('should handle turnaround times more than a day long', () => {
+        let result = calculateDueDate(new Date('2017-08-21 14:51:10'), 10);
+        timeShouldEqual(result, '16:51:10');
+        dateShouldEqual(result, '2017-8-22');
+        result = calculateDueDate(new Date('2017-08-21 14:51:10'), 12);
+        timeShouldEqual(result, '10:51:10');
+        dateShouldEqual(result, '2017-8-23');
+    });
 });

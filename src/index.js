@@ -5,7 +5,8 @@ export function calculateDueDate(submitDate, turnaroundTime) {
 
     let dueToDate = submitDate;
 
-    let days = 0;
+    let days = Math.trunc(turnaroundTime / hoursPerDay);
+    turnaroundTime -= days * hoursPerDay;
 
     let hours = dueToDate.getHours() + turnaroundTime;
     if (hours > hoursEnd) {
@@ -14,9 +15,8 @@ export function calculateDueDate(submitDate, turnaroundTime) {
     }
 
     // Using timestamps handles overlapping months and years
-    const timeToAdd = days * 86400000;
-    dueToDate.setTime(dueToDate.getTime() + timeToAdd);
-    
+    dueToDate.setTime(dueToDate.getTime() + days * 86400000);
+
     dueToDate.setHours(hours);
     return dueToDate;
 }
