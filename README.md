@@ -1,4 +1,5 @@
-# duedatecalc [![Build Status](https://travis-ci.org/vimtaai/duedatecalc.svg?branch=master)](https://travis-ci.org/vimtaai/duedatecalc)
+# duedatecalc [![Build Status](https://travis-ci.org/vimtaai/duedatecalc.svg?branch=master)](https://travis-ci.org/vimtaai/duedatecalc)[![Coverage Status](https://coveralls.io/repos/github/vimtaai/duedatecalc/badge.svg?branch=master)](https://coveralls.io/github/vimtaai/duedatecalc?branch=master)
+
 
 ## About the code
 
