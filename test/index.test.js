@@ -27,6 +27,7 @@ describe('calculateDueDate()', () => {
     it('should handle `within the day` due dates', () => {
         const result = calculateDueDate(new Date('2017-08-18 10:47:42'), 2);
         timeShouldEqual(result, '12:47:42');
+        dateShouldEqual(result, '2017-8-18');
     });
 
     it('should handle day overlapping', () => {
@@ -36,34 +37,49 @@ describe('calculateDueDate()', () => {
     });
 
     it('should handle turnaround times more than a day long', () => {
-        let result = calculateDueDate(new Date('2017-08-21 14:51:10'), 10);
+        const result = calculateDueDate(new Date('2017-08-21 14:51:10'), 10);
         timeShouldEqual(result, '16:51:10');
         dateShouldEqual(result, '2017-8-22');
-        result = calculateDueDate(new Date('2017-08-21 14:51:10'), 12);
+    });
+
+    it('should handle turnaround times more than a day long with day overlapping', () => {
+        const result = calculateDueDate(new Date('2017-08-21 14:51:10'), 12);
         timeShouldEqual(result, '10:51:10');
         dateShouldEqual(result, '2017-8-23');
     });
 
     it('should handle weekends', () => {
-        let result = calculateDueDate(new Date('2017-08-18 15:00:00'), 5);
+        const result = calculateDueDate(new Date('2017-08-18 15:00:00'), 5);
         timeShouldEqual(result, '12:0:0');
         dateShouldEqual(result, '2017-8-21');
-        result = calculateDueDate(new Date('2017-08-18 15:00:00'), 13);
+    });
+
+    it('should handle weekends with more than a day long turnaround times', () => {
+        const result = calculateDueDate(new Date('2017-08-18 15:00:00'), 13);
         timeShouldEqual(result, '12:0:0');
         dateShouldEqual(result, '2017-8-22');
-        result = calculateDueDate(new Date('2017-08-18 15:00:00'), 21);
+    });
+
+    it('should handle weekends with more than a weekend long turnaround times', () => {
+        const result = calculateDueDate(new Date('2017-08-18 15:00:00'), 21);
         timeShouldEqual(result, '12:0:0');
         dateShouldEqual(result, '2017-8-23');
-        result = calculateDueDate(new Date('2017-08-18 15:00:00'), 45);
+    });
+
+    it('should handle weekends with more than a week long turnaround times', () => {
+        const result = calculateDueDate(new Date('2017-08-18 15:00:00'), 45);
         timeShouldEqual(result, '12:0:0');
         dateShouldEqual(result, '2017-8-28');
     });
 
-    it('should handle month and year overlaps', () => {
-        let result = calculateDueDate(new Date('2017-08-31 15:00:00'), 5);
+    it('should handle month overlaps', () => {
+        const result = calculateDueDate(new Date('2017-08-31 15:00:00'), 5);
         timeShouldEqual(result, '12:0:0');
         dateShouldEqual(result, '2017-9-1');
-        result = calculateDueDate(new Date('2017-12-29 15:00:00'), 5);
+    });
+
+    it('should handle year overlaps', () => {
+        const result = calculateDueDate(new Date('2017-12-29 15:00:00'), 5);
         timeShouldEqual(result, '12:0:0');
         dateShouldEqual(result, '2018-1-1');
     });

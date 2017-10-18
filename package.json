@@ -6,7 +6,7 @@
   "scripts": {
     "build": "babel src --out-dir dist",
     "watch": "babel src --out-dir dist -w",
-    "pretest": "npm run build",
+    "pretest": "npm run build --silent",
     "test": "mocha --compilers js:babel-core/register",
     "cover": "istanbul cover node_modules/mocha/bin/_mocha -- --compilers js:babel-core/register",
     "coveralls": "npm run cover && coveralls < ./coverage/lcov.info"

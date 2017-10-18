@@ -4,45 +4,51 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 exports.calculateDueDate = calculateDueDate;
+var daysPerWeek = 7;
+var hoursPerDay = 24;
+var millisecsPerHour = 3600000;
+var millisecsPerDay = millisecsPerHour * hoursPerDay;
+
+function addHours(date, numberOfHours) {
+    return new Date(date.getTime() + numberOfHours * millisecsPerHour);
+}
+
+function addDays(date, numberOfDays) {
+    return new Date(date.getTime() + numberOfDays * millisecsPerDay);
+}
+
+function isInWorkingHours(date, workingHoursStart, workingHoursEnd) {
+    return date.getHours() < workingHoursEnd && date.getHours() >= workingHoursStart;
+}
+
+function isOnWorkingDay(date, workingDays) {
+    return workingDays.indexOf(date.getDay()) !== -1;
+}
+
 /**
  * Calculates a due date and time of a given task
  * @param {Date} submitDate - The time of recording the task
  * @param {number} turnaroundTime - The time required to complete the task in hours
  */
 function calculateDueDate(submitDate, turnaroundTime) {
-    // Predefined constants
-    var hoursStart = 9;
-    var hoursEnd = 17;
-    var hoursPerDay = hoursEnd - hoursStart;
-    var daysPerWeek = 5;
-    var msPerDay = 86400000;
+    var workingDays = [1, 2, 3, 4, 5];
+    var workingHoursStart = 9;
+    var workingHoursEnd = 17;
 
-    var dueDate = new Date(submitDate);
-    // startingDay -> 0 - Mon, 6 - Sun
-    var startingDay = (dueDate.getDay() + 6) % 7;
+    var nonWorkingHoursPerDay = hoursPerDay - (workingHoursEnd - workingHoursStart);
+    var nonWorkingDaysPerWeek = daysPerWeek - workingDays.length;
 
-    // Number of complete working days required
-    var days = Math.trunc(turnaroundTime / hoursPerDay);
-    // Number of complete working weeks required
-    var weekends = Math.trunc(turnaroundTime / (hoursPerDay * daysPerWeek));
-
-    // Hours of due time
-    var hours = dueDate.getHours() + (turnaroundTime - days * hoursPerDay);
-    // Handle day overlapping
-    if (hours > hoursEnd) {
-        days++;
-        hours -= hoursPerDay;
+    var dateCalculator = new Date(submitDate);
+    for (var i = 1; i <= turnaroundTime; ++i) {
+        dateCalculator = addHours(dateCalculator, 1);
+        if (!isInWorkingHours(dateCalculator, workingHoursStart, workingHoursEnd)) {
+            dateCalculator = addHours(dateCalculator, nonWorkingHoursPerDay);
+        }
+        if (!isOnWorkingDay(dateCalculator, workingDays)) {
+            dateCalculator = addDays(dateCalculator, nonWorkingDaysPerWeek);
+        }
     }
-    // Handle weekends
-    if (startingDay + days - weekends * daysPerWeek > 4) {
-        weekends++;
-    }
-
-    // Using timestamps handles overlapping months and years
-    dueDate.setTime(dueDate.getTime() + (days + weekends * 2) * msPerDay);
-    dueDate.setHours(hours);
-
-    return dueDate;
+    return dateCalculator;
 }
 
 exports.default = calculateDueDate;
