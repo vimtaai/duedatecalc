@@ -2,13 +2,13 @@
   "name": "duedatecalc",
   "version": "1.0.0",
   "description": "Due Date Calculator",
-  "main": "dist/index.js",
+  "main": "build/index.js",
   "scripts": {
-    "build": "babel src --out-dir dist",
-    "watch": "babel src --out-dir dist -w",
+    "build": "babel src --out-dir build",
+    "watch": "babel src --out-dir build -w",
     "pretest": "npm run build --silent",
-    "test": "mocha --compilers js:babel-core/register",
-    "cover": "istanbul cover node_modules/mocha/bin/_mocha -- --compilers js:babel-core/register",
+    "test": "mocha build/*.test.js",
+    "cover": "istanbul cover node_modules/mocha/bin/_mocha -- build/*.test.js",
     "coveralls": "npm run cover && coveralls < ./coverage/lcov.info"
   },
   "repository": {
@@ -30,7 +30,7 @@
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
-    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-env": "^1.6.1",
     "chai": "^4.1.1",
     "coveralls": "^2.13.1",
     "istanbul": "^1.0.0-alpha.2",
@@ -39,7 +39,7 @@
   },
   "babel": {
     "presets": [
-      "es2015"
+      "env"
     ]
   }
 }

@@ -1,7 +1,7 @@
 import mocha from 'mocha';
 import chai from 'chai';
 
-import calculateDueDate from '../dist';
+import calculateDueDate from './index';
 
 chai.should();
 
